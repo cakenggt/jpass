@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Include the core AngularJS library -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+
+    <!-- Include the AngularJS routing library -->
+    <script src="https://code.angularjs.org/1.2.28/angular-route.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    {% load staticfiles %}
+
+    <script src="{% static 'jpass/js/sjcl.js' %}" charset="utf-8"></script>
+    {% comment %}
+      You encrypt and decrypt like this:
+      vault = {a:5};
+      username = 'username';
+      password = 'password';
+      encryptedVault = sjcl.encrypt(password, JSON.stringify(vault));
+      hash = sjcl.hash.sha256.hash(password);
+      uploadVault(JSON.stringify(encryptedVault), username, hash); //The hash is the password that the server sees for the user
+      downloadedEncryptedVault = JSON.parse(downloadVault(username, hash));
+      vault = JSON.parse(sjcl.decrypt(password, downloadedEncryptedVault));
+    {% endcomment %}
+    <script type="text/javascript">
+      //This is the app.js
+      var app = angular.module('jpassApp', ['ngRoute'])
+      .service('tokenService', function(){
+        this.token = null;
+      });
+
+      app.config(function ($routeProvider) {
+        $routeProvider
+        .when('/', {
+          controller: 'LoginController',
+          templateUrl: "{% static 'jpass/views/login.html' %}"
+        })
+        .when('/vault', {
+          controller: 'VaultController',
+          templateUrl: "{% static 'jpass/views/vault.html' %}"
+        })
+        .otherwise({
+          redirectTo: '/'
+        });
+      });
+    </script>
+    <title></title>
+  </head>
+  <body ng-app="jpassApp">
+    {% csrf_token %}
+    <div ng-view></div>
+
+    <script src="{% static 'jpass/js/controllers/LoginController.js' %}"></script>
+    <script src="{% static 'jpass/js/controllers/VaultController.js' %}"></script>
+
+    <script src="{% static 'jpass/js/services/login.js' %}"></script>
+    <script src="{% static 'jpass/js/services/vault.js' %}"></script>
+  </body>
+</html>
