@@ -7,10 +7,7 @@ app.factory('login', ['$http', function($http) {
         data: {'username': username, 'password': password},
         headers: {"X-CSRFToken": $('input[name=csrfmiddlewaretoken]').val()},
       })
-      .success(function(data) {
-        return data;
-      })
-      .error(function(data) {
+      .then(function(data) {
         return data;
       });
     }

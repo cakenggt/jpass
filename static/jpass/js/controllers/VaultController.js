@@ -4,9 +4,20 @@ app.controller('VaultController', ['$scope', 'vault', 'tokenService', '$location
     $location.path('/');
   }
   else{
-    vault.getVault().success(function(data) {
+    vault.getVault().then(function(data) {
       $scope.vault = vaultService.vault;
     });
+    $scope.addEntry = function() {
+      vaultService.vault.entries.push({
+        site: '',
+        username: '',
+        password: ''
+      });
+      $location.path('entry/'+(vaultService.vault.entries.length-1));
+    }
+    $scope.edit = function(index) {
+      $location.path('entry/'+index);
+    }
   }
 }])
 .service('vaultService', function(){

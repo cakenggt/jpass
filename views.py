@@ -5,6 +5,8 @@ from rest_framework.authentication import TokenAuthentication, SessionAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
+import json
+
 from.models import Vault
 
 # Create your views here.
@@ -34,9 +36,16 @@ class SetVaultView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
-        vault = request.POST.get('vault', '{}')
-        print vault
-        request.user.vault.data = vault
+        if not request.body:
+            print 'in post'
+            encVault = request.POST.get('vault', '')
+        else:
+            print 'in body'
+            encVault = json.loads(request.body)['vault']
+        vault = request.user.vault
+        vault.data = encVault
+        vault.save()
+        return JsonResponse({'status':'success'})
 
 def main(request):
     return render(request, 'jpass/main.html')

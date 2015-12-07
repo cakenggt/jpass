@@ -1,3 +1,25 @@
-<div>
-  {{vault}}
-</div>
+<table ng-show="vault.entries.length">
+  <tr>
+    <th>
+      Site
+    </th>
+    <th>
+      Username
+    </th>
+    <th>
+      Edit
+    </th>
+  </tr>
+  <tr ng-repeat="entry in vault.entries track by $index">
+    <td>
+      {{entry.site}}
+    </td>
+    <td>
+      {{entry.username}}
+    </td>
+    <td>
+      <button ng-click="edit($index)">edit</button>
+    </td>
+  </tr>
+</table>
+<button ng-click="addEntry()">Add Entry</button>

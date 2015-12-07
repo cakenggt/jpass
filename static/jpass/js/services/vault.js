@@ -9,18 +9,14 @@ app.factory('vault', ['$http', 'tokenService', 'vaultService', 'loginService', f
             "Authorization": "Token " + tokenService.token
           },
       })
-      .success(function(data) {
-        console.log(data);
-        var vault = {};
-        if (data.vault != ''){
-          console.log(JSON.parse(data.vault));
-          console.log(sjcl.decrypt(loginService.password, JSON.parse(data.vault)));
-          vault = JSON.parse(sjcl.decrypt(loginService.password, JSON.parse(data.vault)));
+      .then(function successCallback(response) {
+        var vault = {
+          entries: []
+        };
+        if (response.data.vault != ''){
+          vault = JSON.parse(sjcl.decrypt(loginService.password, response.data.vault));
         }
         vaultService.vault = vault;
-      })
-      .error(function(data) {
-        return data;
       });
     },
     setVault: function(){

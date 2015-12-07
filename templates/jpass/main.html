@@ -37,6 +37,10 @@
           controller: 'VaultController',
           templateUrl: "{% static 'jpass/views/vault.html' %}"
         })
+        .when('/entry/:id', {
+          controller: 'EntryController',
+          templateUrl: "{% static 'jpass/views/entry.html' %}"
+        })
         .otherwise({
           redirectTo: '/'
         });
@@ -50,6 +54,7 @@
 
     <script src="{% static 'jpass/js/controllers/LoginController.js' %}"></script>
     <script src="{% static 'jpass/js/controllers/VaultController.js' %}"></script>
+    <script src="{% static 'jpass/js/controllers/EntryController.js' %}"></script>
 
     <script src="{% static 'jpass/js/services/login.js' %}"></script>
     <script src="{% static 'jpass/js/services/vault.js' %}"></script>

@@ -1,8 +1,8 @@
 app.controller('LoginController', ['$scope', 'login', 'tokenService', 'loginService', '$location', function($scope, login, tokenService, loginService, $location) {
   loginService.username = 'vaultUser';
   loginService.password = 'vaultUser';
-  login.authenticate(loginService.username, loginService.hashPassword()).success(function(data) {
-    tokenService.token = data.token;
+  login.authenticate(loginService.username, loginService.hashPassword()).then(function(response) {
+    tokenService.token = response.data.token;
     $location.path('vault');
   });
 }])
