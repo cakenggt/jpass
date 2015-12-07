@@ -25,10 +25,7 @@
     {% endcomment %}
     <script type="text/javascript">
       //This is the app.js
-      var app = angular.module('jpassApp', ['ngRoute'])
-      .service('tokenService', function(){
-        this.token = null;
-      });
+      var app = angular.module('jpassApp', ['ngRoute']);
 
       app.config(function ($routeProvider) {
         $routeProvider
