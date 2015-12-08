@@ -5,7 +5,6 @@ app.factory('vault', ['$http', 'tokenService', 'vaultService', 'loginService', f
           method: 'GET',
           url: 'get-vault/',
           headers: {
-            "X-CSRFToken": $('input[name=csrfmiddlewaretoken]').val(),
             "Authorization": "Token " + tokenService.token
           },
       })
@@ -26,7 +25,6 @@ app.factory('vault', ['$http', 'tokenService', 'vaultService', 'loginService', f
           url: 'set-vault/',
           data: {vault: vault},
           headers: {
-            "X-CSRFToken": $('input[name=csrfmiddlewaretoken]').val(),
             "Authorization": "Token " + tokenService.token
           },
       })

@@ -5,15 +5,14 @@ app.factory('login', ['$http', function($http) {
         method: 'POST',
         url: 'api-token-auth/',
         data: {'username': username, 'password': password},
-        headers: {"X-CSRFToken": $('input[name=csrfmiddlewaretoken]').val()},
       })
       .then(function(data) {
         return data;
       });
     },
     logout: function(){
-      window.localStorage.token = null;
-      window.localStorage.password = null;
+      window.localStorage.removeItem('token');
+      window.localStorage.removeItem('password');
     }
   }
 }]);
