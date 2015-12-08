@@ -10,6 +10,10 @@ app.factory('login', ['$http', function($http) {
       .then(function(data) {
         return data;
       });
+    },
+    logout: function(){
+      window.localStorage.token = null;
+      window.localStorage.password = null;
     }
   }
 }]);
